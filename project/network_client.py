@@ -1,18 +1,18 @@
 import socket
 import os
 
-HOST = '127.0.0.1'
-PORT = 65432
+UDP_IP = "192.168.10.4"
+UDP_PORT = 5005
 #dir_path = os.path.dirname(os.path.realpath(__file__))
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    with open("test_file.txt", "r") as f:
-        f.readline()
-        for line in f:
-            b = bytearray(line, "utf-8")
-            s.sendall(b)
-            data = s.recv(1024)
-    f.close
+MESSAGE = "hello world"
+
+print "UDP target IP: ", UDP_IP
+print "UDP target port: ", UDP_PORT
+print "message: ", MESSAGE
+
+sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+data = sock.recv(1024)
 
 print ('Received', repr(data))
