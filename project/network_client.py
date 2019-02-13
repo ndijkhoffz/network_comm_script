@@ -39,11 +39,13 @@ if cmd == "W" or cmd == "w":
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     #sock.sendall(MESSAGE_TCP)
     print "Sending message!"
-    with open("test_file_100M.dat", "r") as fd:
-        for line in fd:
+    for i in range(2000000, 2050000):
+    #with open("test_file_100M.dat", "r") as fd:
+        #for line in fd:
             #print "Sending message..."
 	    #print line
-            sock.sendto(line, (UDP_IP, UDP_PORT))
+            i = i & 0xffffffff
+            sock.sendto(str(i), (UDP_IP, UDP_PORT))
             #print "Message sent!"
             #print "Waiting for response..."
             #data = sock.recv(1024)
